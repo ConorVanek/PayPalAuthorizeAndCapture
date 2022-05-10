@@ -13,7 +13,7 @@ namespace paypal_capture
 {
     public partial class PayPalCapture : Form
     {
-        string connectionString = "Server=Goody2;Database=;User ID=GGSvc-software;Password=2sDya@XajvCnSLUe;persist security info=True;";
+        string connectionString = "CONNECTION_STRING_HERE";
 
         public PayPalCapture()
         {
