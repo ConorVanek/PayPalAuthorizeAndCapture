@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Ensures optimal rendering on mobile devices. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
+</head>
+
+<body>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&disable-funding=credit,card&intent=authorize">
+        // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+
+    </script>
+
+	<div id="change-order-total"> 
+		<input type="number" id="order-total" value = "" />
+		<br/>
+		<button onclick="loadPaypalButton()" id="orderTotalButton">Update Order Total</button>
+	</div>
+	
+    <div id="paypal-button-container"></div>
+
+
+
+	<script>
+		function loadPaypalButton() 
+		{
+			var orderTotal = document.getElementById('order-total').value;
+			document.getElementById('paypal-button-container').innerHTML = "";
+			paypal.Buttons({
+				createOrder: function (data, actions) {
+					// This function sets up the details of the transaction, including the amount and line item details.
+					return actions.order.create({
+						purchase_units: [{
+							amount: {
+								value: orderTotal
+							}
+						}]
+					});
+				},
+				onApprove: function(data, actions) {
+					actions.order.authorize().then(function(authorization) {
+						var authorizationID = authorization.purchase_units[0].payments.authorizations[0].id;
+						alert('You have authorizeed this transaction. Order ID: ' + data.orderID + ', Authorization ID: ' + authorizationID);
+						return fetch('paypal-transaction-complete.php', {
+							method: 'post',
+							headers: {
+								'content-type': 'application/json'
+							},
+							body: JSON.stringify({
+								orderID: data.orderID,
+								authorizationID: authorizationID,
+								total: orderTotal
+							})
+						});
+					});					
+					//location.href = 'success.html';
+				}
+			}).render('#paypal-button-container');
+		}
+    </script>
+	
+</body>
+</html>
