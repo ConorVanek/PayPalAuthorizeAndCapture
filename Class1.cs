@@ -22,10 +22,9 @@ namespace paypal_capture
            In production, use LiveEnvironment.
 
         */
-            //string clientID = "AWnv0h9_JSknE4lvusz1PF7W1qz6Pzk1wc6EVubMG-nwBiSCHYkt7PgRIi4orrpI34YE0OdAHvk8qpkh"; original clientID
-            //string secret = "EAAZsLPDSqJbuo73Zpw5vMgqVsaVEriy_HhNqL9s8NvoDlI_uFXJlspklUhJQk-VhCg3p8UxouEVoTEA"; original secret
-            string clientID = "AZZSdIlxKKDPeto5AlWm82ztTUdyCDCYAlVoG-0ilK5JyZ8ogm5ZT0tiNE44vCjHA9uYtldotSA6qtBO";
-            string secret = "EEYpgeWcQnFwBXKtcs2WL6507KDhmyv7LBfKHv57sAaX2eupanoWOgL3fCx5Belcwmb4BXYiEwrkV8bg";
+            
+            string clientID = "CLIENT_ID_HERE";
+            string secret = "SECRET_HERE";
             return new SandboxEnvironment(clientID, secret); // For sandbox environment
             //return new LiveEnvironment(clientID, secret); For live environment
 
